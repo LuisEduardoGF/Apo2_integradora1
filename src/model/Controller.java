@@ -148,27 +148,20 @@ public class Controller {
     public void cargarDatos() {
         ManejadorJSON.cargarDatos(this);
     }
-<<<<<<< HEAD
-    public Incidente buscarIncidentePorId(String id) throws IncidenteNoEncontradoException {
-        for (Incidente i : incidentes) {
-            if (i.getIdIncidente().equalsIgnoreCase(id)) {
-                return i;
-            }
-        }
-        throw new IncidenteNoEncontradoException("Incidente con ID '" + id + "' no fue encontrado.");
+    public LinkedList<Ruta> ordenarRutasPorDistancia() {
+        LinkedList<Ruta> copia = new LinkedList<>(rutas);
+        copia.sort((r1, r2) -> Double.compare(r1.getDistancia(), r2.getDistancia()));
+        return copia;
     }
-    public void ordenarRutasPorDistancia() {
-        rutas.sort((r1, r2) -> Double.compare(r1.getDistancia(), r2.getDistancia()));
-    }
-    public void ordenarRutasPorTiempo() {
-        rutas.sort((r1, r2) -> Double.compare(r1.getTiempoEstimado(), r2.getTiempoEstimado()));
-    }
+    public LinkedList<Ruta> ordenarRutasPorTiempo() {
+        LinkedList<Ruta> copia = new LinkedList<>(rutas);
+        copia.sort((r1, r2) -> Double.compare(r1.getTiempoEstimado(), r2.getTiempoEstimado()));
+        return copia;
+    } 
     public void ordenarIncidentesPorFecha() {
-        incidentes.sort((i1, i2) -> i2.getFecha().compareTo(i1.getFecha()));
+        incidentes.sort((i1, i2) -> i2.getFechaHora().compareTo(i1.getFechaHora()));
     }
-=======
->>>>>>> 7370fd7b8c67e3eda3dfb6be4086ca369e5955fe
-
+         
 }
 
 

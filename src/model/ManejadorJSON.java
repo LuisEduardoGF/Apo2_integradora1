@@ -1,13 +1,12 @@
 package model;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 
 public class ManejadorJSON {
+
     private static final String CARPETA_BASE = "base_datos";
 
     public static void guardarDatos(Controller controller) {
@@ -15,14 +14,14 @@ public class ManejadorJSON {
         crearCarpetaSiNoExiste();
 
         try {
-            guardarLista("conductores.json", controller.getConductores(), gson);
-            guardarLista("pasajeros.json", controller.getPasajeros(), gson);
-            guardarLista("rutas.json", controller.getRutas(), gson);
-            guardarLista("incidentes.json", controller.getIncidentes(), gson);
-            guardarLista("reportes.json", controller.getReportes(), gson);
-            System.out.println("✅ Datos guardados correctamente.");
+            guardarConductores(controller.getConductores(), gson);
+            guardarPasajeros(controller.getPasajeros(), gson);
+            guardarRutas(controller.getRutas(), gson);
+            guardarIncidentes(controller.getIncidentes(), gson);
+            guardarReportes(controller.getReportes(), gson);
+            System.out.println("Datos guardados correctamente.");
         } catch (IOException e) {
-            System.out.println("❌ Error al guardar datos: " + e.getMessage());
+            System.out.println("Error al guardar datos: " + e.getMessage());
         }
     }
 
@@ -30,32 +29,120 @@ public class ManejadorJSON {
         Gson gson = new Gson();
 
         try {
-            controller.getConductores().addAll(cargarLista("conductores.json", new TypeToken<LinkedList<Conductor>>() {}.getType(), gson));
-            controller.getPasajeros().addAll(cargarLista("pasajeros.json", new TypeToken<LinkedList<Pasajero>>() {}.getType(), gson));
-            controller.getRutas().addAll(cargarLista("rutas.json", new TypeToken<LinkedList<Ruta>>() {}.getType(), gson));
-            controller.getIncidentes().addAll(cargarLista("incidentes.json", new TypeToken<LinkedList<Incidente>>() {}.getType(), gson));
-            controller.getReportes().addAll(cargarLista("reportes.json", new TypeToken<LinkedList<Reporte>>() {}.getType(), gson));
-            System.out.println("✅ Datos cargados correctamente.");
+            controller.getConductores().addAll(cargarConductores(gson));
+            controller.getPasajeros().addAll(cargarPasajeros(gson));
+            controller.getRutas().addAll(cargarRutas(gson));
+            controller.getIncidentes().addAll(cargarIncidentes(gson));
+            controller.getReportes().addAll(cargarReportes(gson));
+            System.out.println("Datos cargados correctamente.");
         } catch (IOException e) {
-            System.out.println("❌ Error al cargar datos: " + e.getMessage());
+            System.out.println("Error al cargar datos: " + e.getMessage());
         }
     }
 
-    private static <T> void guardarLista(String nombreArchivo, LinkedList<T> lista, Gson gson) throws IOException {
-        FileWriter writer = new FileWriter(CARPETA_BASE + "/" + nombreArchivo);
+    private static void guardarConductores(LinkedList<Conductor> lista, Gson gson) throws IOException {
+        FileWriter writer = new FileWriter(CARPETA_BASE + "/conductores.json");
         gson.toJson(lista, writer);
         writer.close();
     }
 
-    private static <T> LinkedList<T> cargarLista(String nombreArchivo, Type tipoLista, Gson gson) throws IOException {
-        File archivo = new File(CARPETA_BASE + "/" + nombreArchivo);
-        if (!archivo.exists()) {
-            return new LinkedList<>();
-        }
+    private static LinkedList<Conductor> cargarConductores(Gson gson) throws IOException {
+        File archivo = new File(CARPETA_BASE + "/conductores.json");
+        if (!archivo.exists()) return new LinkedList<>();
         FileReader reader = new FileReader(archivo);
-        LinkedList<T> lista = gson.fromJson(reader, tipoLista);
+        Conductor[] arreglo = gson.fromJson(reader, Conductor[].class);
         reader.close();
-        return lista != null ? lista : new LinkedList<>();
+        LinkedList<Conductor> lista = new LinkedList<>();
+        if (arreglo != null) {
+            for (Conductor c : arreglo) {
+                lista.add(c);
+            }
+        }
+        return lista;
+    }
+
+    private static void guardarPasajeros(LinkedList<Pasajero> lista, Gson gson) throws IOException {
+        FileWriter writer = new FileWriter(CARPETA_BASE + "/pasajeros.json");
+        gson.toJson(lista, writer);
+        writer.close();
+    }
+
+    private static LinkedList<Pasajero> cargarPasajeros(Gson gson) throws IOException {
+        File archivo = new File(CARPETA_BASE + "/pasajeros.json");
+        if (!archivo.exists()) return new LinkedList<>();
+        FileReader reader = new FileReader(archivo);
+        Pasajero[] arreglo = gson.fromJson(reader, Pasajero[].class);
+        reader.close();
+        LinkedList<Pasajero> lista = new LinkedList<>();
+        if (arreglo != null) {
+            for (Pasajero p : arreglo) {
+                lista.add(p);
+            }
+        }
+        return lista;
+    }
+
+    private static void guardarRutas(LinkedList<Ruta> lista, Gson gson) throws IOException {
+        FileWriter writer = new FileWriter(CARPETA_BASE + "/rutas.json");
+        gson.toJson(lista, writer);
+        writer.close();
+    }
+
+    private static LinkedList<Ruta> cargarRutas(Gson gson) throws IOException {
+        File archivo = new File(CARPETA_BASE + "/rutas.json");
+        if (!archivo.exists()) return new LinkedList<>();
+        FileReader reader = new FileReader(archivo);
+        Ruta[] arreglo = gson.fromJson(reader, Ruta[].class);
+        reader.close();
+        LinkedList<Ruta> lista = new LinkedList<>();
+        if (arreglo != null) {
+            for (Ruta r : arreglo) {
+                lista.add(r);
+            }
+        }
+        return lista;
+    }
+
+    private static void guardarIncidentes(LinkedList<Incidente> lista, Gson gson) throws IOException {
+        FileWriter writer = new FileWriter(CARPETA_BASE + "/incidentes.json");
+        gson.toJson(lista, writer);
+        writer.close();
+    }
+
+    private static LinkedList<Incidente> cargarIncidentes(Gson gson) throws IOException {
+        File archivo = new File(CARPETA_BASE + "/incidentes.json");
+        if (!archivo.exists()) return new LinkedList<>();
+        FileReader reader = new FileReader(archivo);
+        Incidente[] arreglo = gson.fromJson(reader, Incidente[].class);
+        reader.close();
+        LinkedList<Incidente> lista = new LinkedList<>();
+        if (arreglo != null) {
+            for (Incidente i : arreglo) {
+                lista.add(i);
+            }
+        }
+        return lista;
+    }
+
+    private static void guardarReportes(LinkedList<Reporte> lista, Gson gson) throws IOException {
+        FileWriter writer = new FileWriter(CARPETA_BASE + "/reportes.json");
+        gson.toJson(lista, writer);
+        writer.close();
+    }
+
+    private static LinkedList<Reporte> cargarReportes(Gson gson) throws IOException {
+        File archivo = new File(CARPETA_BASE + "/reportes.json");
+        if (!archivo.exists()) return new LinkedList<>();
+        FileReader reader = new FileReader(archivo);
+        Reporte[] arreglo = gson.fromJson(reader, Reporte[].class);
+        reader.close();
+        LinkedList<Reporte> lista = new LinkedList<>();
+        if (arreglo != null) {
+            for (Reporte r : arreglo) {
+                lista.add(r);
+            }
+        }
+        return lista;
     }
 
     private static void crearCarpetaSiNoExiste() {
