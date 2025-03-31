@@ -20,11 +20,14 @@ public class Main {
             System.out.println("7. Buscar Conductor por Nombre");
             System.out.println("8. Buscar Incidente por ID");
             System.out.println("9. Cargar Datos");
-            System.out.println("10. Salir");
+            System.out.println("10. guardarDatos");
+            System.out.println("11. Mostrar Rutas Ordenadas por Distancia");
+            System.out.println("12. Mostrar Incidentes Ordenados por Fecha");
+            System.out.println("13. Salir");
             System.out.print("Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir salto de línea
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -114,6 +117,20 @@ public class Main {
                     scanner.close();
                     return;
                 case 11:
+                    controller.ordenarRutasPorDistancia();
+                    System.out.println("Rutas ordenadas por distancia:");
+                    for (Ruta r : controller.getRutas()) {
+                        System.out.println(r.getIdRuta() + " - " + r.getDistancia() + " km");
+                    }
+                    break;
+                case 12:
+                    controller.ordenarIncidentesPorFecha();
+                    System.out.println("Incidentes ordenados por fecha (más recientes primero):");
+                    for (Incidente i : controller.getIncidentes()) {
+                        System.out.println(i.getIdIncidente() + " - " + i.getFecha() + " - " + i.getTipo());
+                    }
+                    break;
+                case 13:
                     System.out.println("Saliendo del sistema...");
                     scanner.close();
                     return;

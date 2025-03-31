@@ -148,6 +148,24 @@ public class Controller {
     public void cargarDatos() {
         ManejadorJSON.cargarDatos(this);
     }
+    public Incidente buscarIncidentePorId(String id) throws IncidenteNoEncontradoException {
+        for (Incidente i : incidentes) {
+            if (i.getIdIncidente().equalsIgnoreCase(id)) {
+                return i;
+            }
+        }
+        throw new IncidenteNoEncontradoException("Incidente con ID '" + id + "' no fue encontrado.");
+    }
+    public void ordenarRutasPorDistancia() {
+        rutas.sort((r1, r2) -> Double.compare(r1.getDistancia(), r2.getDistancia()));
+    }
+    public void ordenarRutasPorTiempo() {
+        rutas.sort((r1, r2) -> Double.compare(r1.getTiempoEstimado(), r2.getTiempoEstimado()));
+    }
+    public void ordenarIncidentesPorFecha() {
+        incidentes.sort((i1, i2) -> i2.getFecha().compareTo(i1.getFecha()));
+    }
+
 }
 
 

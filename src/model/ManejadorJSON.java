@@ -3,12 +3,9 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
-import java.io.File;
 
 public class ManejadorJSON {
     private static final String CARPETA_BASE = "base_datos";
@@ -21,25 +18,26 @@ public class ManejadorJSON {
             guardarLista("conductores.json", controller.getConductores(), gson);
             guardarLista("pasajeros.json", controller.getPasajeros(), gson);
             guardarLista("rutas.json", controller.getRutas(), gson);
-            guardarLista("reportes.json", controller.getReportes(), gson);
             guardarLista("incidentes.json", controller.getIncidentes(), gson);
-            System.out.println("Datos guardados correctamente.");
+            guardarLista("reportes.json", controller.getReportes(), gson);
+            System.out.println("✅ Datos guardados correctamente.");
         } catch (IOException e) {
-            System.out.println("Error al guardar datos: " + e.getMessage());
+            System.out.println("❌ Error al guardar datos: " + e.getMessage());
         }
     }
 
     public static void cargarDatos(Controller controller) {
         Gson gson = new Gson();
+
         try {
             controller.getConductores().addAll(cargarLista("conductores.json", new TypeToken<LinkedList<Conductor>>() {}.getType(), gson));
             controller.getPasajeros().addAll(cargarLista("pasajeros.json", new TypeToken<LinkedList<Pasajero>>() {}.getType(), gson));
             controller.getRutas().addAll(cargarLista("rutas.json", new TypeToken<LinkedList<Ruta>>() {}.getType(), gson));
-            controller.getReportes().addAll(cargarLista("reportes.json", new TypeToken<LinkedList<Reporte>>() {}.getType(), gson));
             controller.getIncidentes().addAll(cargarLista("incidentes.json", new TypeToken<LinkedList<Incidente>>() {}.getType(), gson));
-            System.out.println("Datos cargados correctamente.");
+            controller.getReportes().addAll(cargarLista("reportes.json", new TypeToken<LinkedList<Reporte>>() {}.getType(), gson));
+            System.out.println("✅ Datos cargados correctamente.");
         } catch (IOException e) {
-            System.out.println("Error al cargar datos: " + e.getMessage());
+            System.out.println("❌ Error al cargar datos: " + e.getMessage());
         }
     }
 
