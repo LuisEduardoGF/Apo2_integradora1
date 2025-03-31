@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Apo2_integradora1
 # Sistema de Gestión y Monitoreo de Movilidad y Seguridad (SGMMS)
 
@@ -109,3 +110,6 @@ Desde IntelliJ:
 3. Ejecutar `Main.java` desde `src/main/java/ui/`  
 
 ---
+=======
+# Apo2_integradora1
+>>>>>>> 7370fd7b8c67e3eda3dfb6be4086ca369e5955fe

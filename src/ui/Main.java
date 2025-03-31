@@ -21,9 +21,13 @@ public class Main {
             System.out.println("8. Buscar Incidente por ID");
             System.out.println("9. Cargar Datos");
             System.out.println("10. guardarDatos");
+<<<<<<< HEAD
             System.out.println("11. Mostrar Rutas Ordenadas por Distancia");
             System.out.println("12. Mostrar Incidentes Ordenados por Fecha");
             System.out.println("13. Salir");
+=======
+            System.out.println("11. Salir");
+>>>>>>> 7370fd7b8c67e3eda3dfb6be4086ca369e5955fe
             System.out.print("Seleccione una opción: ");
 
             int opcion = scanner.nextInt();
@@ -117,6 +121,7 @@ public class Main {
                     scanner.close();
                     return;
                 case 11:
+<<<<<<< HEAD
                     controller.ordenarRutasPorDistancia();
                     System.out.println("Rutas ordenadas por distancia:");
                     for (Ruta r : controller.getRutas()) {
@@ -131,6 +136,8 @@ public class Main {
                     }
                     break;
                 case 13:
+=======
+>>>>>>> 7370fd7b8c67e3eda3dfb6be4086ca369e5955fe
                     System.out.println("Saliendo del sistema...");
                     scanner.close();
                     return;
